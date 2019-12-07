@@ -119,6 +119,92 @@ public class SchubsTest
 
         assert(areEqual);
     }
+    
+    public void testSchubsHsingle() throws IOException
+    {
+        File f1 = new File("src" + File.separator + "res" + File.separator + "copy7.txt");
+        File f2 = new File("src" + File.separator + "res" + File.separator + "oldcopy7.txt");
+        
+        schubsH.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy7.txt"});
+        boolean b = f1.renameTo(f2);
+        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy7.txt.hh"});
+
+        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy7.txt")); 
+        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy7.txt"));
+         
+        String line1 = reader1.readLine();
+        String line2 = reader2.readLine();
+         
+        boolean areEqual = true; 
+        int lineNum = 1;
+         
+        while (line1 != null || line2 != null)
+        {
+            if(line1 == null || line2 == null)
+            {
+                areEqual = false;
+                break;
+            }
+            else if(! line1.equals(line2))
+            {
+                areEqual = false;
+                 break;
+            }
+             
+            line1 = reader1.readLine();
+            line2 = reader2.readLine();
+             
+            lineNum++;
+        }
+         
+        reader1.close();
+        reader2.close();
+
+        assert(areEqual);
+    }
+
+    public void testSchubsLsingle() throws IOException
+    {
+        File f1 = new File("src"  + File.separator + "res"  + File.separator + "copy8.txt");
+        File f2 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy8.txt");
+        
+        SchubsL.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy8.txt"});
+        boolean b = f1.renameTo(f2);
+        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy8.txt.ll"});
+
+        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy8.txt")); 
+        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy8.txt"));
+         
+        String line1 = reader1.readLine();
+        String line2 = reader2.readLine();
+         
+        boolean areEqual = true; 
+        int lineNum = 1;
+         
+        while (line1 != null || line2 != null)
+        {
+            if(line1 == null || line2 == null)
+            {
+                areEqual = false;
+                break;
+            }
+            else if(! line1.equals(line2))
+            {
+                areEqual = false;
+                 break;
+            }
+             
+            line1 = reader1.readLine();
+            line2 = reader2.readLine();
+             
+            lineNum++;
+        }
+         
+        reader1.close();
+        reader2.close();
+
+        assert(areEqual);
+    }
 
     // public void testSchubsTars() throws IOException
     // {
