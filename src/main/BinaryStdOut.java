@@ -1,4 +1,3 @@
-package com.lynda;
 
 /******************************************************************************
  *  Compilation:  javac BinaryStdOut.java

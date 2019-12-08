@@ -1,4 +1,4 @@
-package com.lynda;
+
 /******************************************************************************
  *  Compilation:  javac BinaryDump.java
  *  Execution:    java BinaryDump N < file

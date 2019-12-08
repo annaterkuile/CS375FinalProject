@@ -1,11 +1,6 @@
-package com.lynda;
-
 import java.io.*;
 
 public class schubsH {
-
-    private static BinaryIn in;
-    private static BinaryOut out;
 
     private static final int R = 256;
     public static boolean logging = true;
@@ -35,22 +30,23 @@ public class schubsH {
 
     public static void err_print(String msg)
     {
-	if (logging)
-	    System.err.print(msg);
+	    if (logging)
+	        System.err.print(msg);
     }
 
     public static void err_println(String msg)
     {
-	if (logging)
-	    {
-		System.err.println(msg);
+	    if (logging) {
+		    System.err.println(msg);
 	    }
     }
 
-    public static void compress() {
-  
-        String s = in.readString();
-        char[] input = s.toCharArray();
+    public static void compress(String filename) {
+        BinaryIn reader = new BinaryIn(filename);
+        BinaryOut writer = new BinaryOut(filename + ".hh");
+
+        String s = reader.readString();
+		char[] input = s.toCharArray();
 
         int[] freq = new int[R];
         for (int i = 0; i < input.length; i++)
@@ -61,32 +57,32 @@ public class schubsH {
         String[] st = new String[R];
         buildCode(st, root, "");
 
-        writeTrie(root);
-	err_println("writeTrie");
+        writeTrie(root, writer);
+	    err_println("writeTrie");
 
-        out.write(input.length);
-	err_println("writing input length " + input.length);
+        writer.write(input.length);
+	    err_println("writing input length " + input.length);
 
-	err_println("happily encoding... ");
+	    err_println("happily encoding... ");
        
         for (int i = 0; i < input.length; i++) {
             String code = st[input[i]];
-	    err_print("Char " + input[i] + " ");
+	        err_print("Char " + input[i] + " ");
             for (int j = 0; j < code.length(); j++) {
                 if (code.charAt(j) == '0') {
-                    out.write(false);
-		    err_print("0");
+                    writer.write(false);
+		            err_print("0");
                 }
                 else if (code.charAt(j) == '1') {
-                    out.write(true);
-		    err_print("1");
+                    writer.write(true);
+		            err_print("1");
                 }
-                else throw new RuntimeException("Illegal state");
+                else{throw new RuntimeException("Illegal state");} 
             }
 	    err_println("");
         }
 
-        out.flush();
+        writer.close();
     }
 
     private static Node buildTrie(int[] freq) {
@@ -100,25 +96,25 @@ public class schubsH {
             Node left  = pq.delMin();
             Node right = pq.delMin();
             Node parent = new Node('\0', left.freq + right.freq, left, right);
-	    err_println("buildTrie parent " + left.freq + " " + right.freq);
+	        err_println("buildTrie parent " + left.freq + " " + right.freq);
             pq.insert(parent);
         }
         return pq.delMin();
     }
 
 
-    private static void writeTrie(Node x) {
+    private static void writeTrie(Node x, BinaryOut writer) {
         if (x.isLeaf()) {
-            out.write(true);
-            out.write(x.ch);
-	    err_println("T" + x.ch);
+            writer.write(true);
+            writer.write(x.ch);
+	        err_println("T" + x.ch);
             return;
         }
-        out.write(false);
-	err_print("F");
+        writer.write(false);
+	    err_print("F");
 
-        writeTrie(x.left);
-        writeTrie(x.right);
+        writeTrie(x.left, writer);
+        writeTrie(x.right, writer);
     }
 
     private static void buildCode(String[] st, Node x, String s) {
@@ -128,30 +124,17 @@ public class schubsH {
         }
         else {
             st[x.ch] = s;
-	    err_println("buildCode " + x.ch + " " + s);
-        }
-    }
-
-    private static Node readTrie() {
-        boolean isLeaf = in.readBoolean();
-        if (isLeaf) {
-	    char x = in.readChar();
-	    err_println("t: " + x );
-            return new Node(x, -1, null, null);
-        }
-        else {
-	    err_print("f");
-            return new Node('\0', -1, readTrie(), readTrie());
+	        err_println("buildCode " + x.ch + " " + s);
         }
     }
 
 
     public static void main(String[] args) {
-        for (int i = 0; i < args.length; i++){
-            in = new BinaryIn(args[i]);
-            out = new BinaryOut(args[i] + ".hh");
-            compress();
-        }
+
+        for(int i = 0; i < args.length; i++) 
+        {
+			compress(args[i]);
+		}
         
     }
 

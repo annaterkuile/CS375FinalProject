@@ -1,14 +1,12 @@
-package com.lynda;
-
 import java.io.IOException;
 
 public class Deschubs {
     private static final int R = 256;        
     private static final int L = 4096;       
     private static final int W = 12;         
-
-    private static BinaryIn in;
-    private static BinaryOut out;
+    public static boolean logging = true;
+    // private static BinaryIn in;
+    // private static BinaryOut out;
 
     private static class Node implements Comparable<Node> {
         private final char ch;
@@ -32,10 +30,19 @@ public class Deschubs {
         }
     }
 
+    public static void err_println(String msg)
+    {
+	if (logging)
+	    {
+		System.err.println(msg);
+	    }
+    }
+
     private static Node readTrie(BinaryIn reader) {
         boolean isLeaf = reader.readBoolean();
         if (isLeaf) {
-	    char x = reader.readChar();
+            char x = reader.readChar();
+            err_println("t: " + x );
             return new Node(x, -1, null, null);}
         else {
             return new Node('\0', -1, readTrie(reader), readTrie(reader));
@@ -43,8 +50,9 @@ public class Deschubs {
     }
     
 
-    public static void expandH(String filename, String filename2) {
+    public static void expandH(String filename) {
         BinaryIn reader = new BinaryIn(filename);
+        String filename2 = filename.substring(0, filename.length()-3);
         BinaryOut writer = new BinaryOut(filename2);
 
         Node root = readTrie(reader); 
@@ -55,25 +63,25 @@ public class Deschubs {
             Node x = root;
             while (!x.isLeaf()) {
                 boolean bit = reader.readBoolean();
-                if (bit) x = x.right;
-                else     x = x.left;
+                if (bit){x = x.right;} 
+                else {x = x.left;}    
             }
             writer.write(x.ch);
         }
-        writer.flush();
+        writer.close();
 
     }
 
-    public static void expandL(String filename, String filename2) {
+    public static void expandL(String filename) {
         BinaryIn reader = new BinaryIn(filename);
+        String filename2 = filename.substring(0, filename.length()-3);
         BinaryOut writer = new BinaryOut(filename2);
 
         String[] st = new String[L];
         int i; 
 
-        
         for (i = 0; i < R; i++)
-            st[i] = "" + (char) i;
+            {st[i] = "" + (char) i;}
         st[i++] = "";                        
 
         int codeword = reader.readInt(W);
@@ -82,10 +90,10 @@ public class Deschubs {
         while (true) {
             writer.write(val);
             codeword = reader.readInt(W);
-            if (codeword == R) break;
+            if (codeword == R) {break;}
             String s = st[codeword];
-            if (i == codeword) s = val + val.charAt(0);   
-            if (i < L) st[i++] = val + s.charAt(0);
+            if (i == codeword) {s = val + val.charAt(0);}   
+            if (i < L) {st[i++] = val + s.charAt(0);}
             val = s;
         }
         writer.close();
@@ -97,13 +105,13 @@ public class Deschubs {
 
         for (int i = 0; i < args.length; i++){
             if (extenstion.equals(".hh"))
-                expandH(args[i], args[i].substring(0, args[i].length()-3));
+                expandH(args[i]);
             else if (extenstion.equals(".ll"))
-                expandL(args[i], args[i].substring(0, args[i].length()-3));
+                expandL(args[i]);
             // else if (extenstion.equals(".zh"))
-            //     // expandH(args[i], args[i].substring(0, args[i].length()-3));
             //     DeschubsArc.main(new String[] {args[i]});
-            }
-
         }
+
     }
+}
+

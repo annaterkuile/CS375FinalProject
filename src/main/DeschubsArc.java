@@ -1,5 +1,3 @@
-package com.lynda;
-
 import java.io.*;
 
 public class DeschubsArc

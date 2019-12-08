@@ -1,5 +1,3 @@
-package com.lynda;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -119,18 +117,18 @@ public class SchubsTest
 
         assert(areEqual);
     }
-    
+
     public void testSchubsHsingle() throws IOException
     {
-        File f1 = new File("src" + File.separator + "res" + File.separator + "copy7.txt");
-        File f2 = new File("src" + File.separator + "res" + File.separator + "oldcopy7.txt");
+        File f1 = new File("src" + File.separator + "res" + File.separator + "copy10.txt");
+        File f2 = new File("src" + File.separator + "res" + File.separator + "oldcopy10.txt");
         
-        schubsH.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy7.txt"});
+        schubsH.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy10.txt"});
         boolean b = f1.renameTo(f2);
-        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy7.txt.hh"});
+        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy10.txt.hh"});
 
-        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy7.txt")); 
-        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy7.txt"));
+        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy10.txt")); 
+        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy10.txt"));
          
         String line1 = reader1.readLine();
         String line2 = reader2.readLine();
@@ -165,15 +163,15 @@ public class SchubsTest
 
     public void testSchubsLsingle() throws IOException
     {
-        File f1 = new File("src"  + File.separator + "res"  + File.separator + "copy8.txt");
-        File f2 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy8.txt");
+        File f1 = new File("src"  + File.separator + "res"  + File.separator + "copy11.txt");
+        File f2 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy11.txt");
         
-        SchubsL.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy8.txt"});
+        SchubsL.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy11.txt"});
         boolean b = f1.renameTo(f2);
-        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy8.txt.ll"});
+        Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy11.txt.ll"});
 
-        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy8.txt")); 
-        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy8.txt"));
+        BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy11.txt")); 
+        BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy11.txt"));
          
         String line1 = reader1.readLine();
         String line2 = reader2.readLine();
@@ -208,21 +206,21 @@ public class SchubsTest
 
     // public void testSchubsTars() throws IOException
     // {
-    //     File f1 = new File("src"  + File.separator + "res"  + File.separator + "copy.txt");
-    //     File f2 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy.txt");
-    //     File f3 = new File("src"  + File.separator + "res"  + File.separator + "copy2.txt");
-    //     File f4 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy2.txt");
-    //     File f5 = new File("src"  + File.separator + "res"  + File.separator + "copy3.txt");
-    //     File f6 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy3.txt");
+    //     File f1 = new File("src"  + File.separator + "res"  + File.separator + "copy7.txt");
+    //     File f2 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy7.txt");
+    //     File f3 = new File("src"  + File.separator + "res"  + File.separator + "copy8.txt");
+    //     File f4 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy8.txt");
+    //     File f5 = new File("src"  + File.separator + "res"  + File.separator + "copy9.txt");
+    //     File f6 = new File("src"  + File.separator + "res"  + File.separator + "oldcopy9.txt");
         
-    //     SchubsArc.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy.txt", "src"  + File.separator + "res"  + File.separator + "copy2.txt", "src"  + File.separator + "res"  + File.separator + "copy3.txt"});
+    //     SchubsArc.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy7.txt", "src"  + File.separator + "res"  + File.separator + "copy8.txt", "src"  + File.separator + "res"  + File.separator + "copy9.txt"});
     //     boolean b = f1.renameTo(f2);
     //     boolean c = f3.renameTo(f4);
     //     boolean d = f5.renameTo(f6);
-    //     Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy.txt.hh"});
+    //     Deschubs.main(new String[] {"src"  + File.separator + "res"  + File.separator + "copy.txt.zh.hh"});
 
-    //     BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy.txt")); 
-    //     BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy.txt"));
+    //     BufferedReader reader1 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "copy7.txt")); 
+    //     BufferedReader reader2 = new BufferedReader(new FileReader("src"  + File.separator + "res"  + File.separator + "oldcopy7.txt"));
          
     //     String line1 = reader1.readLine();
     //     String line2 = reader2.readLine();
