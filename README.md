@@ -51,4 +51,4 @@ To install this project you must clone the repo and then compile said repo with 
 
 ## Run Examples
 
-If you are going to use java -cp target/classes <Program Name> src/res/<filename> 
+If you want to run programs individually clone the repo, run mvn test, and then run java -cp target/classes <Program Name> src/res/<filename> 
