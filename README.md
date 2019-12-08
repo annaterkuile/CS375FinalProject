@@ -51,4 +51,4 @@ To install this project you must clone the repo and then compile said repo with 
 
 ## Run Examples
 
-If you are going to use java -cp target/classes/com/lynda and then file and then the filename of what you are compressing
+If you are going to use java -cp target/classes <Program Name> src/res/<filename> 
